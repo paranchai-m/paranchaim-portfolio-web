@@ -3,25 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paranchai Malaikanok | Palynologist</title>
+    <title>Paranchai Malaikanok | Palynologist & Fossil Pollen Specialist</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional portfolio of Paranchai Malaikanok, Palynologist and Fossil Pollen Specialist reconstructing ancient environments in Southeast Asia.">
+    <meta name="keywords" content="Paranchai Malaikanok, Palynologist, Fossil Pollen, Southeast Asia, Biostratigraphy, Palynofloras, Botany, Thailand">
+    <meta name="author" content="Paranchai Malaikanok">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paranchai-m.github.io/simple-portfolio-web/">
+    <meta property="og:title" content="Paranchai Malaikanok | Palynologist & Fossil Pollen Specialist">
+    <meta property="og:description" content="Explore research publications, certifications, and academic highlights in Southeast Asian palynology.">
+    <meta property="og:image" content="docs/my_profile/certificate/certificate-Gemini-Certified-Educator.pdf">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Paranchai Malaikanok | Palynologist & Fossil Pollen Specialist">
+    <meta property="twitter:description" content="Explore research publications, certifications, and academic highlights in Southeast Asian palynology.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Interactive Background Grid -->
+    <canvas id="grid-canvas"></canvas>
+
+    <!-- Geometric Accents -->
     <div class="geometric-accents">
         <div class="shape circle"></div>
     </div>
 
+    <!-- Navigation -->
     <header>
         <nav class="top-nav">
             <div class="container">
                 <div class="nav-wrapper">
+                    <div class="theme-toggle-container">
+                        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                            <span class="toggle-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            </span>
+                        </button>
+                    </div>
                     <div class="nav-contact">
                         <button class="copy-email-btn" data-email="paranchai.m@gmail.com" title="Click to copy email">
                             <span class="email-text">paranchai.m@gmail.com</span>
-                            <span class="copy-icon">📨</span>
+                            <span class="copy-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -37,19 +70,18 @@
     </header>
 
     <main class="container">
-        <!-- ... Publications section remains unchanged ... -->
         <section id="publications">
             <h2 class="section-title">Publications</h2>
             
             <div class="category-divider"></div>
-            <h3 class="subsection-title"> Research Articles</h3>
+            <h3 class="subsection-title">Research Articles</h3>
 
             <article class="publication reveal">
                 <h3 class="pub-title">Marked Ericales diversity in late Oligocene–Early Miocene palynofloras from northern Thailand suggests stratified mountain forests</h3>
                 <p class="pub-journal">Journal of Systematics and Evolution (2025)</p>
                 <div class="pub-details">
-                    <p><strong>Objective:</strong> To investigate fossil Ericales pollen with a high taxonomic resolution from the Ban Pa Kha Subbasin and assess their palaeoenvironmental significance by comparing them with modern analogues and climate profiles.</p>
-                    <p><strong>Summary:</strong> This study identified 24 different ericalean pollen types, suggesting that the rich ensemble of Ericales in northern Thailand has existed since at least the late Oligocene. The findings indicate that the assemblage likely derives from stratified mountain forests with multiple vertical vegetation zones.</p>
+                    <p><strong>Objective:</strong> To investigate fossil Ericales pollen grains with high taxonomic resolution from the Ban Pa Kha Subbasin and assess their palaeoenvironmental significance by comparing them with modern analogues and climate profiles.</p>
+                    <p><strong>Summary:</strong> This study identified 24 different ericalean pollen types, suggesting that the rich diversity of Ericales in northern Thailand has existed since at least the late Oligocene. The findings indicate that the assemblage likely derived from stratified mountain forests with multiple vertical vegetation zones.</p>
                     <a href="https://onlinelibrary.wiley.com/doi/10.1111/jse.70010" class="read-more">Read Publication &rarr;</a>
                 </div>
             </article>
@@ -59,7 +91,7 @@
                 <p class="pub-journal">Botanical Journal of the Linnean Society (2023)</p>
                 <div class="pub-details">
                     <p><strong>Objective:</strong> To investigate fossil pollen grains of Fagaceae from the Ban Pa Kha Subbasin using combined light microscopy (LM) and scanning electron microscopy (SEM) to obtain high taxonomic resolution and infer the palaeoenvironment of the region during the Late Oligocene to Early Miocene.</p>
-                    <p><strong>Summary:</strong> This study identified 15 fossil species of Fagaceae, suggesting that the rich ensemble of oak-dominated forests typical of Southeast Asia has existed since the Eocene, contradicting previous theories of a much later establishment.</p>
+                    <p><strong>Summary:</strong> This study identified 15 fossil species of Fagaceae, suggesting that the rich assemblage of oak-dominated forests typical of Southeast Asia has existed since the Eocene, contradicting previous theories of a much later establishment.</p>
                     <a href="https://academic.oup.com/botlinnean/article/202/1/1/7010368" class="read-more">Read Publication &rarr;</a>
                 </div>
             </article>
@@ -69,7 +101,7 @@
                 <p class="pub-journal">Botanical Journal of the Linnean Society (2018)</p>
                 <div class="pub-details">
                     <p><strong>Objective:</strong> To study the pollen morphology and harmomegathic mechanisms (volume changes due to hydration/dehydration) of Gnetum species in Thailand using combined LM and SEM.</p>
-                    <p><strong>Summary:</strong> This research provides detailed descriptions of <i>Gnetum</i> pollen and explores how their unique morphological features relate to their physiological responses and evolutionary history.</p>
+                    <p><strong>Summary:</strong> This research provides detailed descriptions of <i>Gnetum</i> pollen grains and explores how their unique morphological features relate to their physiological responses and evolutionary history.</p>
                     <a href="https://doi.org/10.1093/botlinnean/boy033" class="read-more">Read Publication &rarr;</a>
                 </div>
             </article>
@@ -91,63 +123,58 @@
             <div class="category-divider"></div>
             
             <div class="cert-types-container">
-                <!-- Column 1: AI & Education -->
-                <div class="cert-type-column">
-                    <h4>AI & Education</h4>
-                    <article class="publication reveal">
-                        <div>
-                            <p class="cert-year">2025</p>
-                            <h3 class="pub-title">Gemini Certified Educator</h3>
-                            <p class="pub-journal">Google for Education</p>
-                        </div>
-                        <div class="cert-links">
-                            <a href="my_profile/certificate/certificate-Gemini-Certified-Educator.pdf" class="read-more" target="_blank">PDF</a>
-                            <a href="my_profile/certificate/credential-ob3-02125f16-6d25-45d4-9a29-af2ec9a35e46.json" class="read-more" target="_blank">JSON</a>
-                        </div>
-                    </article>
+                <!-- Column 1: AI & Data Science (2 Columns Sub-grid) -->
+                <div class="cert-type-column wide-column">
+                    <h4>AI & Data Science</h4>
+                    <div class="cert-sub-grid">
+                        <article class="publication reveal">
+                            <div>
+                                <p class="cert-year">2025</p>
+                                <h3 class="pub-title">Gemini Certified Educator</h3>
+                                <p class="pub-journal">Google for Education</p>
+                            </div>
+                            <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-Gemini-Certified-Educator.pdf" data-cert-type="pdf" data-cert-title="Gemini Certified Educator">View</button>
+                        </article>
+
+                        <article class="publication reveal">
+                            <div>
+                                <p class="cert-year">2026</p>
+                                <h3 class="pub-title">Data Science Bootcamp 12</h3>
+                                <p class="pub-journal">DataRockie School</p>
+                            </div>
+                            <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-data-science-bootcamp-12.pdf" data-cert-type="pdf" data-cert-title="Data Science Bootcamp 12">View</button>
+                        </article>
+
+                        <article class="publication reveal">
+                            <div>
+                                <p class="cert-year">2025</p>
+                                <h3 class="pub-title">Data Analyst Manifesto</h3>
+                                <p class="pub-journal">DataRockie School</p>
+                            </div>
+                            <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-data-analyst-manifesto.pdf" data-cert-type="pdf" data-cert-title="Data Analyst Manifesto">View</button>
+                        </article>
+
+                        <article class="publication reveal">
+                            <div>
+                                <p class="cert-year">2025</p>
+                                <h3 class="pub-title">SQL Crash Course</h3>
+                                <p class="pub-journal">DataRockie School</p>
+                            </div>
+                            <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-sql-crash-course.pdf" data-cert-type="pdf" data-cert-title="SQL Crash Course">View</button>
+                        </article>
+
+                        <article class="publication reveal">
+                            <div>
+                                <p class="cert-year">2025</p>
+                                <h3 class="pub-title">Google Sheets Crash Course</h3>
+                                <p class="pub-journal">DataRockie School</p>
+                            </div>
+                            <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-google-sheets-crash-course.pdf" data-cert-type="pdf" data-cert-title="Google Sheets Crash Course">View</button>
+                        </article>
+                    </div>
                 </div>
 
-                <!-- Column 2: Data Science & Analysis -->
-                <div class="cert-type-column">
-                    <h4>Data Science & Analysis</h4>
-                    <article class="publication reveal">
-                        <div>
-                            <p class="cert-year">2026</p>
-                            <h3 class="pub-title">Data Science Bootcamp 12</h3>
-                            <p class="pub-journal">DataRockie School</p>
-                        </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-data-science-bootcamp-12.pdf" class="read-more" target="_blank">View &rarr;</a>
-                    </article>
-
-                    <article class="publication reveal">
-                        <div>
-                            <p class="cert-year">2025</p>
-                            <h3 class="pub-title">Data Analyst Manifesto</h3>
-                            <p class="pub-journal">DataRockie School</p>
-                        </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-data-analyst-manifesto.pdf" class="read-more" target="_blank">View &rarr;</a>
-                    </article>
-
-                    <article class="publication reveal">
-                        <div>
-                            <p class="cert-year">2025</p>
-                            <h3 class="pub-title">SQL Crash Course</h3>
-                            <p class="pub-journal">DataRockie School</p>
-                        </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-sql-crash-course.pdf" class="read-more" target="_blank">View &rarr;</a>
-                    </article>
-
-                    <article class="publication reveal">
-                        <div>
-                            <p class="cert-year">2025</p>
-                            <h3 class="pub-title">Google Sheets Crash Course</h3>
-                            <p class="pub-journal">DataRockie School</p>
-                        </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-google-sheets-crash-course.pdf" class="read-more" target="_blank">View &rarr;</a>
-                    </article>
-                </div>
-
-                <!-- Column 3: Business & Essentials -->
+                <!-- Column 2: Business & Essentials -->
                 <div class="cert-type-column">
                     <h4>Business & Essentials</h4>
                     <article class="publication reveal">
@@ -156,7 +183,7 @@
                             <h3 class="pub-title">One Person Business 101</h3>
                             <p class="pub-journal">DataRockie School</p>
                         </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-one-person-business-101.pdf" class="read-more" target="_blank">View &rarr;</a>
+                        <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-one-person-business-101.pdf" data-cert-type="pdf" data-cert-title="One Person Business 101">View</button>
                     </article>
 
                     <article class="publication reveal">
@@ -165,8 +192,122 @@
                             <h3 class="pub-title">Mini Bootcamp 2025</h3>
                             <p class="pub-journal">DataRockie School</p>
                         </div>
-                        <a href="my_profile/certificate/certificate-of-completion-for-mini-bootcamp-2025.pdf" class="read-more" target="_blank">View &rarr;</a>
+                        <button class="cert-btn" data-cert-src="my_profile/certificate/certificate-of-completion-for-mini-bootcamp-2025.pdf" data-cert-type="pdf" data-cert-title="Mini Bootcamp 2025">View</button>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="category-divider"></div>
+            
+            <div class="education-container">
+                <article class="publication reveal">
+                    <div>
+                        <p class="cert-year">2017</p>
+                        <h3 class="pub-title">Master of Science (M.Sc.) in Biology</h3>
+                        <p class="pub-journal">Prince of Songkla University (International Program)</p>
+                    </div>
+                </article>
+
+                <article class="publication reveal">
+                    <div>
+                        <p class="cert-year">2013</p>
+                        <h3 class="pub-title">Bachelor of Science (B.Sc.) in Biology</h3>
+                        <p class="pub-journal">Prince of Songkla University</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Scientific Experience Section -->
+        <section id="scientific-experience">
+            <h2 class="section-title">Scientific Experience</h2>
+            <div class="category-divider"></div>
+            
+            <div class="publication reveal experience-box">
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <span class="exp-year">2024</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Staff</h3>
+                            <p class="exp-desc">Staff member at the Phatthalung Fossil Festival, Princess Maha Chakri Sirindhorn Natural History Museum, Thailand.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <span class="exp-year">2024</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Staff</h3>
+                            <p class="exp-desc">Staff member at the Geological World of the Thai Peninsula Open House, Princess Maha Chakri Sirindhorn Natural History Museum, Thailand.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2021 – 2024</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Research Assistant</h3>
+                            <p class="exp-desc">Research assistant for the project “The Late Oligocene to Early Miocene Palaeopalynoflora from the Ban Pa Kha Subbasin, Li Basin, Lamphun, Thailand”.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2022</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Participant</h3>
+                            <p class="exp-desc">Participant in the paleontological survey conducted by the Department of Mineral Resources, Thailand.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2021</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Presenter</h3>
+                            <p class="exp-desc">Presenter at the PastBioDivSEA21 Conference: Current Studies on Past Biodiversity in Southeast Asia.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2019</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Presenter</h3>
+                            <p class="exp-desc">Presenter at the 9th Taxonomy and Systematics Conference, Chiang Mai University, Thailand.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2019</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Exchange Student</h3>
+                            <p class="exp-desc">Exchange student for the Erasmus+ project at USMP Herbarium, School of Biological Sciences, Universiti Sains Malaysia, Penang, Malaysia.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2017</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Participant</h3>
+                            <p class="exp-desc">Participant in the 17th Flora of Thailand Conference, Thailand.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2016</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Participant</h3>
+                            <p class="exp-desc">Participant in the 10th Botanical Conference of Thailand, Ubon Ratchathani University, Thailand.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <span class="exp-year">2016</span>
+                        <div class="exp-content">
+                            <h3 class="exp-role">Internship Student</h3>
+                            <p class="exp-desc">Internship student at the Applied Taxonomic Research Center, Khon Kaen University, Thailand.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -178,6 +319,24 @@
             <p>&copy; 2026 Paranchai Malaikanok</p>
         </div>
     </footer>
+
+    <!-- Floating Back to Top Button -->
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Back to top">
+        <span class="arrow">&uarr;</span>
+    </button>
+
+    <!-- Interactive Certificate Modal -->
+    <div id="cert-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Certificate</h3>
+                <button class="modal-close" aria-label="Close modal" title="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Loaded dynamically by script.js -->
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
