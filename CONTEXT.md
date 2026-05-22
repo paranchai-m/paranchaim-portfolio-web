@@ -44,3 +44,4 @@ This document outlines the domain concepts, technical architecture, and term glo
     *   **JSON Credentials:** Displayed as formatted code blocks inside the modal with a copy button.
     *   **Mobile Fallback:** Modals on mobile viewports show certificate details and a direct download/view button, circumventing poor mobile PDF rendering inside iframes.
 4.  **Theming (Light/Dark Toggle):** System preferences are respected, but the user is provided a top-nav toggle to shift between classic white-paper Bauhaus and high-contrast dark-charcoal Bauhaus.
+5.  **Academic Experience Timeline Structure:** To highlight the primary long-term research role, the '2021 – 2025 Research Assistant' position is pinned at the top of the timeline. Other shorter-term positions (including outreach roles updated to 'Temporary Academic Staff') are listed below in reverse chronological order.
