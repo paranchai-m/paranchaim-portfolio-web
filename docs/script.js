@@ -1,35 +1,71 @@
+// ============================================
+// EMAIL COPY
+// ============================================
 function setupEmailCopy() {
     const copyBtn = document.querySelector(".copy-email-btn");
     if (!copyBtn) return;
 
     copyBtn.addEventListener("click", () => {
         const email = copyBtn.getAttribute("data-email");
-        navigator.clipboard.writeText(email).then(() => {
-            const originalText = copyBtn.querySelector(".email-text").innerText;
-            copyBtn.classList.add("copied");
-            copyBtn.querySelector(".email-text").innerText = "";
-            
-            setTimeout(() => {
-                copyBtn.classList.remove("copied");
-                copyBtn.querySelector(".email-text").innerText = originalText;
-            }, 2000);
-        });
+        const emailTextEl = copyBtn.querySelector(".email-text");
+        const originalText = emailTextEl ? emailTextEl.innerText : email;
+
+        // Clipboard API with fallback
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(() => {
+                showCopiedState(copyBtn, emailTextEl, originalText);
+            }).catch(() => {
+                fallbackCopy(email, copyBtn, emailTextEl, originalText);
+            });
+        } else {
+            fallbackCopy(email, copyBtn, emailTextEl, originalText);
+        }
     });
 }
 
-function reveal() {
+function fallbackCopy(text, btn, emailTextEl, originalText) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand("copy");
+        showCopiedState(btn, emailTextEl, originalText);
+    } catch (e) {
+        // Silently fail — button stays unchanged
+    }
+    document.body.removeChild(textarea);
+}
+
+function showCopiedState(btn, emailTextEl, originalText) {
+    btn.classList.add("copied");
+    if (emailTextEl) emailTextEl.innerText = "";
+
+    setTimeout(() => {
+        btn.classList.remove("copied");
+        if (emailTextEl) emailTextEl.innerText = originalText;
+    }, 2000);
+}
+
+// ============================================
+// SCROLL REVEAL (IntersectionObserver)
+// ============================================
+function setupReveal() {
     const reveals = document.querySelectorAll(".reveal");
 
     const observerOptions = {
         root: null,
-        threshold: 0.1,
-        rootMargin: "0px"
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px"
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("active");
+                observer.unobserve(entry.target); // Stop observing once revealed
             }
         });
     }, observerOptions);
@@ -37,10 +73,12 @@ function reveal() {
     reveals.forEach(el => observer.observe(el));
 }
 
-const SUN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+// ============================================
+// THEME TOGGLE
+// ============================================
+const SUN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 
-// Theme Toggle Functionality
 function setupThemeToggle() {
     const themeToggle = document.getElementById("theme-toggle");
     if (!themeToggle) return;
@@ -65,6 +103,7 @@ function setupThemeToggle() {
         if (toggleIcon) {
             toggleIcon.innerHTML = isDark ? MOON_SVG : SUN_SVG;
             // Micro-animation spin
+            toggleIcon.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
             toggleIcon.style.transform = "rotate(360deg)";
             setTimeout(() => {
                 toggleIcon.style.transform = "none";
@@ -73,7 +112,9 @@ function setupThemeToggle() {
     });
 }
 
-// Certificate Modal Functionality
+// ============================================
+// CERTIFICATE MODAL
+// ============================================
 function setupCertificateModal() {
     const modal = document.getElementById("cert-modal");
     const certBtns = document.querySelectorAll(".cert-btn");
@@ -86,41 +127,50 @@ function setupCertificateModal() {
     function isMobile() {
         return window.innerWidth < 768;
     }
+
+    function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+    }
     
     function openModal(title, src, type) {
         modalTitle.innerText = title;
-        modalBody.innerHTML = ""; // Clear existing content
+        modalBody.innerHTML = "";
         
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+        document.body.style.overflow = "hidden";
+
+        // Trap focus inside modal
+        closeBtn.focus();
         
         if (type === "pdf") {
             if (isMobile()) {
-                // Mobile layout with a view button
+                const safeTitle = escapeHtml(title);
                 modalBody.innerHTML = `
                     <div class="mobile-fallback-view">
-                        <div class="mobile-fallback-title">${title}</div>
+                        <div class="mobile-fallback-title">${safeTitle}</div>
                         <div class="mobile-fallback-meta">PDF Certificate Document</div>
-                        <a href="${src}" class="mobile-view-btn" target="_blank">Open Certificate</a>
+                        <a href="${encodeURI(src)}" class="mobile-view-btn" target="_blank" rel="noopener">Open Certificate</a>
                     </div>
                 `;
             } else {
-                // Desktop inline PDF view
-                modalBody.innerHTML = `<iframe src="${src}" title="${title}"></iframe>`;
+                const iframe = document.createElement("iframe");
+                iframe.src = src;
+                iframe.title = title;
+                modalBody.appendChild(iframe);
             }
         } else if (type === "json") {
-            // Render styled JSON credential block
             modalBody.innerHTML = `
                 <div class="json-container">
                     <div class="json-header">
-                        <button class="copy-json-btn">Copy JSON 📋</button>
+                        <button class="copy-json-btn">Copy JSON</button>
                     </div>
                     <pre class="json-code-block">Loading credential data...</pre>
                 </div>
             `;
             
-            // Fetch and display JSON data
             fetch(src)
                 .then(response => {
                     if (!response.ok) throw new Error("Network response was not ok");
@@ -131,18 +181,19 @@ function setupCertificateModal() {
                     const codeBlock = modalBody.querySelector(".json-code-block");
                     if (codeBlock) codeBlock.textContent = jsonString;
                     
-                    // Setup copy button
                     const copyJsonBtn = modalBody.querySelector(".copy-json-btn");
                     if (copyJsonBtn) {
                         copyJsonBtn.addEventListener("click", () => {
-                            navigator.clipboard.writeText(jsonString).then(() => {
-                                copyJsonBtn.innerText = "Copied! ✓";
-                                copyJsonBtn.classList.add("copied");
-                                setTimeout(() => {
-                                    copyJsonBtn.innerText = "Copy JSON 📋";
-                                    copyJsonBtn.classList.remove("copied");
-                                }, 2000);
-                            });
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                navigator.clipboard.writeText(jsonString).then(() => {
+                                    copyJsonBtn.innerText = "Copied! ✓";
+                                    copyJsonBtn.classList.add("copied");
+                                    setTimeout(() => {
+                                        copyJsonBtn.innerText = "Copy JSON";
+                                        copyJsonBtn.classList.remove("copied");
+                                    }, 2000);
+                                });
+                            }
                         });
                     }
                 })
@@ -156,13 +207,12 @@ function setupCertificateModal() {
     function closeModal() {
         modal.classList.remove("active");
         modal.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = ""; // Restore scrolling
-        // Wait for transition to complete before clearing body to prevent flashing
+        document.body.style.overflow = "";
         setTimeout(() => {
             if (!modal.classList.contains("active")) {
                 modalBody.innerHTML = "";
             }
-        }, 400);
+        }, 350);
     }
     
     certBtns.forEach(btn => {
@@ -176,14 +226,12 @@ function setupCertificateModal() {
     
     closeBtn.addEventListener("click", closeModal);
     
-    // Close on overlay click
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             closeModal();
         }
     });
     
-    // Close on Escape key
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && modal.classList.contains("active")) {
             closeModal();
@@ -191,16 +239,25 @@ function setupCertificateModal() {
     });
 }
 
-// Floating Back to Top Button Functionality
+// ============================================
+// BACK TO TOP
+// ============================================
 function setupBackToTop() {
     const backToTopBtn = document.getElementById("back-to-top");
     if (!backToTopBtn) return;
     
+    let ticking = false;
     window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add("visible");
-        } else {
-            backToTopBtn.classList.remove("visible");
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add("visible");
+                } else {
+                    backToTopBtn.classList.remove("visible");
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
     });
     
@@ -212,7 +269,9 @@ function setupBackToTop() {
     });
 }
 
-// Setup Interactive Background Grid Canvas
+// ============================================
+// INTERACTIVE BACKGROUND GRID CANVAS
+// ============================================
 function setupGridCanvas() {
     const canvas = document.getElementById("grid-canvas");
     if (!canvas) return;
@@ -228,9 +287,16 @@ function setupGridCanvas() {
         canvas.height = height * dpr;
         canvas.style.width = width + "px";
         canvas.style.height = height + "px";
+        // Reset transform before applying new scale to prevent compounding
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
     }
-    window.addEventListener("resize", resize);
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 100);
+    });
     resize();
 
     // Mouse positions (start off-screen)
@@ -256,8 +322,8 @@ function setupGridCanvas() {
 
     function animate() {
         // Subtle drift in background pattern
-        driftX += 0.15;
-        driftY += 0.08;
+        driftX += 0.12;
+        driftY += 0.06;
 
         // Smoothly interpolate spotlight position to mouse position
         if (mouseX === -1000 && targetMouseX !== -1000) {
@@ -267,7 +333,6 @@ function setupGridCanvas() {
             mouseX += (targetMouseX - mouseX) * 0.08;
             mouseY += (targetMouseY - mouseY) * 0.08;
         } else {
-            // Smoothly ease spotlight off-screen if mouse left page
             mouseX += (-1000 - mouseX) * 0.08;
             mouseY += (-1000 - mouseY) * 0.08;
         }
@@ -275,13 +340,12 @@ function setupGridCanvas() {
         ctx.clearRect(0, 0, width, height);
 
         const isDark = document.body.classList.contains("dark-theme");
-        const baseLineColor = isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)";
-        const activeLineColor = isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.12)";
+        const baseLineColor = isDark ? "rgba(255, 255, 255, 0.025)" : "rgba(0, 0, 0, 0.025)";
+        const activeLineColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
 
         const scrollY = window.scrollY;
         const scrollX = window.scrollX || 0;
 
-        // Base grid offset
         const offsetX = (driftX - scrollX) % gridSpacing;
         const offsetY = (driftY - scrollY) % gridSpacing;
 
@@ -292,7 +356,7 @@ function setupGridCanvas() {
         ctx.beginPath();
         ctx.strokeStyle = baseLineColor;
         ctx.lineWidth = 1;
-        ctx.setLineDash([2, 14]); // 75%+ sparse dash pattern
+        ctx.setLineDash([2, 14]);
 
         for (let x = startX; x < width + gridSpacing; x += gridSpacing) {
             ctx.moveTo(x, 0);
@@ -309,7 +373,7 @@ function setupGridCanvas() {
             ctx.beginPath();
             ctx.strokeStyle = activeLineColor;
             ctx.lineWidth = 1;
-            ctx.setLineDash([]); // Solid lines when active
+            ctx.setLineDash([]);
 
             const minX = mouseX - spotlightRadius;
             const maxX = mouseX + spotlightRadius;
@@ -358,12 +422,47 @@ function setupGridCanvas() {
     requestAnimationFrame(animate);
 }
 
+// ============================================
+// ACTIVE NAV LINK HIGHLIGHTING
+// ============================================
+function setupActiveNavLinks() {
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("main > section[id]");
+    
+    if (!navLinks.length || !sections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.style.color = "";
+                    link.style.background = "";
+                });
+                const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+                if (activeLink) {
+                    activeLink.style.color = "var(--text-color)";
+                    activeLink.style.background = "var(--accent-red-light)";
+                }
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.2,
+        rootMargin: "-80px 0px -50% 0px"
+    });
+
+    sections.forEach(section => observer.observe(section));
+}
+
+// ============================================
+// INIT
+// ============================================
 window.addEventListener("DOMContentLoaded", () => {
-    reveal();
+    setupReveal();
     setupEmailCopy();
     setupThemeToggle();
     setupCertificateModal();
     setupBackToTop();
     setupGridCanvas();
+    setupActiveNavLinks();
 });
-console.log("Portfolio animations, utilities, and background grid initialized.");

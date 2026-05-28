@@ -1,6 +1,6 @@
 # Paranchai Malaikanok Portfolio
 
-## Palynologist | Fossil Pollen Specialist (Southeast Asia)
+## Palynologist (Southeast Asia)
 
 A professional, interactive portfolio website for **Paranchai Malaikanok**, showcasing research highlights, publications, academic credentials, and professional certifications. 
 
