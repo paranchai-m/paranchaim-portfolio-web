@@ -67,13 +67,15 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.8;
     color: var(--text-color);
     background-color: var(--bg-color);
     overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 /* Accessibility: Skip to content */
@@ -85,7 +87,7 @@ body {
     background: var(--accent-red);
     color: #fff;
     font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     border-radius: var(--radius-sm);
     z-index: 9999;
     text-decoration: none;
@@ -113,9 +115,10 @@ body {
    TYPOGRAPHY
    ============================================ */
 h1, h2, h3, h4 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--text-color);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    font-feature-settings: 'kern' 1;
 }
 
 /* ============================================
@@ -156,7 +159,7 @@ h1, h2, h3, h4 {
 
 .nav-links a {
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-muted);
@@ -210,7 +213,7 @@ h1, h2, h3, h4 {
     border: 1.5px solid var(--divider-color);
     border-radius: var(--radius-full);
     padding: 0.5rem 1.2rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: 0.82rem;
     color: var(--text-color);
@@ -278,7 +281,7 @@ header {
     background-color: var(--accent-red);
     color: #FFFFFF;
     padding: 0.35rem 0.9rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -349,7 +352,7 @@ h1 {
     background: var(--text-color);
     color: var(--bg-color);
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -477,11 +480,11 @@ h3.subsection-title {
 }
 
 .pub-title {
-    font-size: 1.35rem;
-    line-height: 1.35;
+    font-size: 1.25rem;
+    line-height: 1.45;
     margin-bottom: 0.6rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
 }
 
 .pub-journal {
@@ -496,10 +499,10 @@ h3.subsection-title {
 .pub-details p {
     margin-bottom: 1rem;
     color: var(--text-color);
-    opacity: 0.85;
+    opacity: 0.88;
     text-align: left;
-    line-height: 1.75;
-    font-size: 0.95rem;
+    line-height: 1.85;
+    font-size: 1rem;
 }
 
 .read-more {
@@ -511,7 +514,7 @@ h3.subsection-title {
     color: var(--accent-red);
     font-weight: 700;
     font-size: 0.85rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     transition: gap var(--transition-fast), color var(--transition-fast);
 }
 
@@ -544,7 +547,7 @@ h3.subsection-title {
 }
 
 .cert-type-column h4 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -574,7 +577,7 @@ h3.subsection-title {
     font-size: 0.78rem;
     color: var(--text-light);
     font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     margin-bottom: 0.35rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -585,7 +588,7 @@ h3.subsection-title {
     border: 1.5px solid var(--card-border);
     border-radius: var(--radius-full);
     padding: 0.4rem 1rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.78rem;
     color: var(--text-color);
@@ -686,7 +689,7 @@ h3.subsection-title {
 }
 
 .exp-year {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
     color: var(--accent-red);
@@ -704,13 +707,13 @@ h3.subsection-title {
     font-weight: 700;
     display: block;
     margin-bottom: 0.3rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--text-color);
 }
 
 .exp-desc {
-    font-size: 0.9rem;
-    line-height: 1.65;
+    font-size: 0.95rem;
+    line-height: 1.8;
     color: var(--text-muted);
     margin-top: 0.15rem;
     display: block;
@@ -770,7 +773,7 @@ footer {
 
 .footer-links a {
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-muted);
@@ -851,7 +854,7 @@ footer {
 }
 
 .modal-title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-color);
@@ -918,7 +921,7 @@ footer {
     border: 1.5px solid var(--card-border);
     border-radius: var(--radius-full);
     padding: 0.4rem 1rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.78rem;
     color: var(--text-color);
@@ -940,7 +943,7 @@ footer {
 }
 
 .json-code-block {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-family: 'Source Code Pro', 'Courier New', monospace;
     background-color: #141414;
     color: #E5E7EB;
     padding: 1.5rem;
@@ -968,7 +971,7 @@ footer {
 
 .mobile-fallback-title {
     font-size: 1.3rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     color: var(--text-color);
 }
@@ -985,7 +988,7 @@ footer {
     border: none;
     border-radius: var(--radius-full);
     padding: 0.75rem 2rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.9rem;
     text-decoration: none;
