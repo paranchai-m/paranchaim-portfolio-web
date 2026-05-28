@@ -399,6 +399,7 @@ h1 {
    ============================================ */
 main > section {
     margin-bottom: var(--section-spacing);
+    scroll-margin-top: 5rem;
 }
 
 h2.section-title {
