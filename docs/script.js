@@ -431,27 +431,54 @@ function setupActiveNavLinks() {
     
     if (!navLinks.length || !sections.length) return;
 
+    // Track intersection status of all sections
+    const intersectionStates = {};
+    sections.forEach(section => {
+        intersectionStates[section.id] = false;
+    });
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    link.style.color = "";
-                    link.style.background = "";
-                });
-                const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-                if (activeLink) {
-                    activeLink.style.color = "var(--text-color)";
-                    activeLink.style.background = "var(--accent-red-light)";
-                }
+            intersectionStates[entry.target.id] = entry.isIntersecting;
+        });
+
+        // Find the first section that is currently intersecting from the top
+        let activeSectionId = null;
+        for (const section of sections) {
+            if (intersectionStates[section.id]) {
+                activeSectionId = section.id;
+                break;
+            }
+        }
+
+        // Update links based on active section
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+            if (activeSectionId && href === `#${activeSectionId}`) {
+                link.style.color = "var(--text-color)";
+                link.style.background = "var(--accent-red-light)";
+            } else {
+                link.style.color = "";
+                link.style.background = "";
             }
         });
     }, {
         root: null,
-        threshold: 0.2,
-        rootMargin: "-80px 0px -50% 0px"
+        threshold: 0.1, // Lower threshold to trigger earlier
+        rootMargin: "-70px 0px -40% 0px" // Avoid clashing exactly with 80px scroll-padding-top
     });
 
     sections.forEach(section => observer.observe(section));
+
+    // Failsafe: clear highlights when scrolled to the very top (Hero section)
+    window.addEventListener("scroll", () => {
+        if (window.scrollY < 50) {
+            navLinks.forEach(link => {
+                link.style.color = "";
+                link.style.background = "";
+            });
+        }
+    }, { passive: true });
 }
 
 // ============================================
