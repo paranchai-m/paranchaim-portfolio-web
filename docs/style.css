@@ -60,6 +60,18 @@ body.dark-theme {
     padding: 0;
 }
 
+/* Custom Text Selection Highlight */
+::selection {
+    background-color: var(--accent-red);
+    color: #FFFFFF;
+}
+
+::-moz-selection {
+    background-color: var(--accent-red);
+    color: #FFFFFF;
+}
+
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
