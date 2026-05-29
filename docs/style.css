@@ -336,6 +336,7 @@ h1 {
     animation: wave-animation 2.5s infinite;
     transform-origin: 70% 70%;
     cursor: default;
+    flex-shrink: 0;
 }
 
 .hero .subtitle:hover .wave-emoji {
