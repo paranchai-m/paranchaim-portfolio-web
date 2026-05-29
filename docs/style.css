@@ -418,18 +418,71 @@ h1 {
 /* ============================================
    SECTION STYLES
    ============================================ */
+/* Removed counter-reset since section counter is replaced by emojis */
+
 main > section {
     margin-bottom: var(--section-spacing);
     scroll-margin-top: 5rem;
 }
 
 h2.section-title {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    margin-bottom: 0.75rem;
-    border-bottom: var(--border-width) solid var(--border-color);
-    display: inline-block;
-    padding-bottom: 0.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    color: var(--text-color);
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 3px solid var(--accent-red);
+    border-bottom: 1px solid var(--card-bg);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    padding: 0.7rem 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: -1px;
     position: relative;
+    z-index: 2;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+h2.section-title::before {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+    font-size: 1.05rem;
+    filter: grayscale(100%) brightness(0.9);
+    opacity: 0.85;
+    background-color: var(--accent-red-light);
+    padding: 0.2rem 0.45rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+body.dark-theme h2.section-title::before {
+    filter: grayscale(100%) brightness(1.2);
+}
+
+#publications h2.section-title::before {
+    content: "📄";
+}
+
+#certifications h2.section-title::before {
+    content: "🏅";
+}
+
+#education h2.section-title::before {
+    content: "🎓";
+}
+
+#academic-experience h2.section-title::before {
+    content: "💼";
+}
+
+h2.section-title:hover {
+    color: var(--accent-red);
+    border-top-color: var(--accent-red-hover);
 }
 
 .section-subtitle {
@@ -441,20 +494,31 @@ h2.section-title {
 
 .category-divider {
     height: 1px;
-    background: var(--divider-color);
-    margin: 1.5rem 0 2rem;
+    background: var(--card-border);
+    margin: 0 0 2.5rem 0;
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 h3.subsection-title {
-    font-size: 1.4rem;
-    margin-bottom: 1.75rem;
-    background: var(--text-color);
-    color: var(--bg-color);
-    padding: 0.4rem 1.2rem;
-    display: inline-block;
-    border-radius: 4px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.82rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+h3.subsection-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--divider-color);
 }
 
 /* ============================================
@@ -480,12 +544,11 @@ h3.subsection-title {
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--accent-red);
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-red) 30%, transparent 100%);
     opacity: 0;
     transition: opacity var(--transition-fast);
-    border-radius: 0 2px 2px 0;
 }
 
 .publication:hover {
@@ -544,72 +607,49 @@ h3.subsection-title {
 /* ============================================
    CERTIFICATIONS
    ============================================ */
-.cert-types-container {
+.cert-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
     margin-bottom: 2rem;
-    align-items: start;
-}
-
-.cert-sub-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.cert-type-column {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.cert-type-column h4 {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--accent-red);
-    margin-bottom: 0.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--divider-color);
 }
 
 #certifications .publication {
     margin-bottom: 0;
     padding: 1.25rem 1.5rem;
     width: 100%;
-    min-height: 160px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 0.75rem;
-}
-
-#certifications .pub-title {
-    font-size: 1.05rem;
-    line-height: 1.35;
+    box-shadow: none;
+    border-radius: var(--radius-sm);
+    border-left: 3px dashed var(--divider-color);
+    border-top: 1px solid var(--card-border);
+    border-right: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
 }
 
 .cert-year {
-    font-size: 0.78rem;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.72rem;
     color: var(--text-light);
-    font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
     margin-bottom: 0.35rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
 }
 
 .cert-btn {
     background: none;
     border: 1.5px solid var(--card-border);
     border-radius: var(--radius-full);
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.9rem;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
-    font-size: 0.78rem;
-    color: var(--text-color);
+    font-size: 0.72rem;
+    color: var(--text-muted);
     cursor: pointer;
     transition: all var(--transition-fast);
     display: inline-flex;
@@ -619,7 +659,7 @@ h3.subsection-title {
     outline: none;
     align-self: flex-start;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
 }
 
 .cert-btn:hover {
@@ -637,12 +677,83 @@ h3.subsection-title {
    EDUCATION
    ============================================ */
 .education-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
 }
 
 .education-container .publication {
+    margin-bottom: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--card-shadow);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-medium),
+                box-shadow var(--transition-medium),
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.education-container .publication::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-red) 30%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    display: block;
+}
+
+.education-container .publication:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    background: var(--card-bg);
+}
+
+.education-container .publication:hover::before {
+    opacity: 1;
+}
+
+.education-container .cert-year {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    min-width: 6rem;
+    text-align: center;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.education-container .cert-year .grad-text {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.15rem;
+    display: block;
+}
+
+.education-container .pub-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+}
+
+.education-container .pub-journal {
     margin-bottom: 0;
 }
 
@@ -650,7 +761,38 @@ h3.subsection-title {
    EXPERIENCE TIMELINE (CSS Grid layout)
    ============================================ */
 .experience-box {
-    padding: 2.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem 3rem 2.5rem 2.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform var(--transition-medium),
+                box-shadow var(--transition-medium),
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-box::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-red) 30%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.experience-box:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.experience-box:hover::before {
+    opacity: 1;
 }
 
 .experience-timeline {
@@ -1078,14 +1220,6 @@ footer {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-@media (max-width: 900px) {
-    .cert-types-container {
-        grid-template-columns: 1fr;
-    }
-    .cert-sub-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 @media (max-width: 768px) {
     :root {
@@ -1105,11 +1239,12 @@ footer {
     }
 
     h2.section-title {
-        font-size: 1.8rem;
+        font-size: 1.15rem;
+        padding: 0.5rem 1.2rem;
     }
 
     h3.subsection-title {
-        font-size: 1.2rem;
+        font-size: 0.75rem;
     }
 
     .publication {
@@ -1158,8 +1293,16 @@ footer {
         min-width: auto;
     }
 
-    .education-container {
-        grid-template-columns: 1fr;
+    .education-container .publication {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .education-container .cert-year {
+        font-size: 1.2rem;
+        text-align: center;
+        min-width: auto;
+        align-items: center;
     }
 
     .footer-links {
@@ -1218,6 +1361,8 @@ footer {
     }
 
     h2.section-title {
-        border-bottom-color: #000;
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
     }
 }
