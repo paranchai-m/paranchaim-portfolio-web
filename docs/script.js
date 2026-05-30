@@ -320,7 +320,33 @@ function setupGridCanvas() {
     let driftY = 0;
     const spotlightRadius = 220;
 
+    // Particle system (monochrome pollen and dust)
+    const particles = [];
+    const particleCount = 85;
+    let lastScrollY = window.scrollY;
+    
+    function initParticles() {
+        particles.length = 0;
+        for (let i = 0; i < particleCount; i++) {
+            const isPollen = Math.random() > 0.65;
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                size: isPollen ? (2 + Math.random() * 4) : (0.8 + Math.random() * 1.2), // pollen: 2-6px, dust: 0.8-1.2px
+                alpha: isPollen ? (0.2 + Math.random() * 0.3) : (0.1 + Math.random() * 0.2),
+                isPollen: isPollen
+            });
+        }
+    }
+    initParticles();
+
     function animate() {
+        const scrollY = window.scrollY;
+        const deltaScrollY = scrollY - lastScrollY;
+        lastScrollY = scrollY;
+
         // Subtle drift in background pattern
         driftX += 0.12;
         driftY += 0.06;
@@ -414,6 +440,64 @@ function setupGridCanvas() {
                 }
             }
             ctx.stroke();
+        }
+
+        // Update and draw particles (pollen & dust) with fade on scroll
+        const scrollFade = Math.max(0, 1 - (scrollY / (height * 0.8)));
+        if (scrollFade > 0) {
+            particles.forEach(p => {
+                // Update physics: Friction
+                p.vx *= 0.94;
+                p.vy *= 0.94;
+                
+                const inertia = p.isPollen ? (p.size / 2) : 1;
+                
+                // Scroll drift (opposing scroll)
+                if (Math.abs(deltaScrollY) > 0.1) {
+                    p.vy -= (deltaScrollY * 0.12) / inertia;
+                }
+                
+                // Random float drift
+                p.vx += (Math.random() - 0.5) * 0.12;
+                p.vy += (Math.random() - 0.5) * 0.08;
+                
+                // Settle gravity
+                p.vy += 0.015 * inertia;
+                
+                // Mouse attraction
+                if (mouseX > -500 && mouseY > -500) {
+                    const dx = mouseX - p.x;
+                    const dy = mouseY - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 220) {
+                        const force = (220 - dist) / 220;
+                        p.vx += (dx / dist) * force * 0.08 / inertia;
+                        p.vy += (dy / dist) * force * 0.08 / inertia;
+                    }
+                }
+                
+                // Apply velocities
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Boundary wrapping
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) {
+                    p.y = height;
+                    p.x = Math.random() * width;
+                }
+                if (p.y > height) {
+                    p.y = 0;
+                    p.x = Math.random() * width;
+                }
+                
+                // Draw particle
+                ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.alpha * scrollFade})` : `rgba(0, 0, 0, ${p.alpha * scrollFade})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            });
         }
 
         requestAnimationFrame(animate);
