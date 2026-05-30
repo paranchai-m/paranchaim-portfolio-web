@@ -1,14 +1,21 @@
 // ============================================
 // EMAIL COPY
 // ============================================
+let emailCopyTimer = null;
+
 function setupEmailCopy() {
     const copyBtn = document.querySelector(".copy-email-btn");
     if (!copyBtn) return;
 
+    const emailTextEl = copyBtn.querySelector(".email-text");
+    const email = copyBtn.getAttribute("data-email");
+    const originalText = emailTextEl ? emailTextEl.innerText : email;
+
     copyBtn.addEventListener("click", () => {
-        const email = copyBtn.getAttribute("data-email");
-        const emailTextEl = copyBtn.querySelector(".email-text");
-        const originalText = emailTextEl ? emailTextEl.innerText : email;
+        if (emailCopyTimer) {
+            clearTimeout(emailCopyTimer);
+            emailCopyTimer = null;
+        }
 
         // Clipboard API with fallback
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -43,9 +50,10 @@ function showCopiedState(btn, emailTextEl, originalText) {
     btn.classList.add("copied");
     if (emailTextEl) emailTextEl.innerText = "";
 
-    setTimeout(() => {
+    emailCopyTimer = setTimeout(() => {
         btn.classList.remove("copied");
         if (emailTextEl) emailTextEl.innerText = originalText;
+        emailCopyTimer = null;
     }, 2000);
 }
 
@@ -124,6 +132,8 @@ function setupCertificateModal() {
     
     if (!modal || !closeBtn || !modalTitle || !modalBody) return;
     
+    let lastActiveElement = null;
+
     function isMobile() {
         return window.innerWidth < 768;
     }
@@ -133,8 +143,15 @@ function setupCertificateModal() {
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     }
+
+    function getFocusableElements() {
+        return modal.querySelectorAll(
+            'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+        );
+    }
     
     function openModal(title, src, type) {
+        lastActiveElement = document.activeElement;
         modalTitle.innerText = title;
         modalBody.innerHTML = "";
         
@@ -208,6 +225,12 @@ function setupCertificateModal() {
         modal.classList.remove("active");
         modal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
+        
+        // Restore focus to triggering button
+        if (lastActiveElement && typeof lastActiveElement.focus === "function") {
+            lastActiveElement.focus();
+        }
+        
         setTimeout(() => {
             if (!modal.classList.contains("active")) {
                 modalBody.innerHTML = "";
@@ -215,13 +238,15 @@ function setupCertificateModal() {
         }, 350);
     }
     
-    certBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
+    // Bind open events dynamically to cover all cert buttons
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".cert-btn");
+        if (btn) {
             const title = btn.getAttribute("data-cert-title");
             const src = btn.getAttribute("data-cert-src");
             const type = btn.getAttribute("data-cert-type");
             openModal(title, src, type);
-        });
+        }
     });
     
     closeBtn.addEventListener("click", closeModal);
@@ -233,8 +258,28 @@ function setupCertificateModal() {
     });
     
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("active")) {
+        if (!modal.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
             closeModal();
+        } else if (e.key === "Tab") {
+            const focusable = Array.from(getFocusableElements());
+            if (focusable.length === 0) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    last.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    first.focus();
+                    e.preventDefault();
+                }
+            }
         }
     });
 }
@@ -369,7 +414,6 @@ function setupGridCanvas() {
         const baseLineColor = isDark ? "rgba(255, 255, 255, 0.025)" : "rgba(0, 0, 0, 0.025)";
         const activeLineColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
 
-        const scrollY = window.scrollY;
         const scrollX = window.scrollX || 0;
 
         const offsetX = (driftX - scrollX) % gridSpacing;
