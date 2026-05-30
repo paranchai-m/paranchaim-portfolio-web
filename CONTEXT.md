@@ -17,7 +17,6 @@ This document outlines the domain concepts, technical architecture, and term glo
 *   **Bauhaus Red (`#E3120B`):** A vibrant, highly saturated primary red key to the Bauhaus movement, representing utility, modernism, and boldness.
 *   **Neo-Minimalist Bauhaus:** A modern evolution of the classic Bauhaus layout. It combines strict grid geometry, stark typography, and primary color blocks with digital elements like soft drop shadows and fluid scroll-reveal animations.
 *   **Neo-Minimal Cards:** Floating container units (`.publication`) characterized by rounded corners (`16px`), light borders (`1px solid #eee`), and micro-elevations (`transform: translateY(-8px)`) on hover.
-*   **Pollen & Dust Particles:** A high-performance canvas particle system mimicking drifting pollen and microscopic dust. Designed in monochrome styles matching the theme, the particles float upwards when the page is scrolled and swarm dynamically around the cursor spotlight. They cluster in the Hero section to keep content pages readable.
 
 ---
 
@@ -46,4 +45,3 @@ This document outlines the domain concepts, technical architecture, and term glo
     *   **Mobile Fallback:** Modals on mobile viewports show certificate details and a direct download/view button, circumventing poor mobile PDF rendering inside iframes.
 4.  **Theming (Light/Dark Toggle):** System preferences are respected, but the user is provided a top-nav toggle to shift between classic white-paper Bauhaus and high-contrast dark-charcoal Bauhaus.
 5.  **Academic Experience Timeline Structure:** To highlight the primary long-term research role, the '2021 – 2025 Research Assistant' position is pinned at the top of the timeline. Other shorter-term positions (including outreach roles updated to 'Temporary Academic Staff') are listed below in reverse chronological order.
-6.  **Background Particle Simulation:** An interactive system displaying monochrome pollen and dust particles in the Hero section. This simulation is drawn directly on the background canvas for performance optimization. It tracks scrolling delta to shift particles upward dynamically and fades them out beyond the first viewport height to preserve text readability in the main content sections.

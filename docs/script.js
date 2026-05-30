@@ -365,55 +365,7 @@ function setupGridCanvas() {
     let driftY = 0;
     const spotlightRadius = 220;
 
-    // Dual particle system: falling petals for Hero, gravitating particles for Body
-    const heroParticles = [];
-    const bodyParticles = [];
-    const heroCount = 45;
-    const bodyCount = 65;
-    let time = 0;
-    let lastScrollY = window.scrollY;
-    
-    function initParticles() {
-        heroParticles.length = 0;
-        bodyParticles.length = 0;
-        
-        // 1. Initialize Hero falling petals
-        for (let i = 0; i < heroCount; i++) {
-            const isPollen = Math.random() > 0.65;
-            heroParticles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vy: 0.5 + Math.random() * 0.8, // slower, elegant fall
-                size: isPollen ? (2 + Math.random() * 3) : (0.8 + Math.random() * 1.2),
-                alpha: isPollen ? (0.15 + Math.random() * 0.25) : (0.08 + Math.random() * 0.15),
-                swayOffset: Math.random() * Math.PI * 2,
-                swaySpeed: 0.01 + Math.random() * 0.02,
-                swayWidth: 0.15 + Math.random() * 0.35,
-                isPollen: isPollen
-            });
-        }
-
-        // 2. Initialize Body gravitating particles
-        for (let i = 0; i < bodyCount; i++) {
-            const isPollen = Math.random() > 0.65;
-            bodyParticles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                size: isPollen ? (2 + Math.random() * 4) : (0.8 + Math.random() * 1.2),
-                alpha: isPollen ? (0.2 + Math.random() * 0.3) : (0.1 + Math.random() * 0.2),
-                isPollen: isPollen
-            });
-        }
-    }
-    initParticles();
-
     function animate() {
-        const scrollY = window.scrollY;
-        const deltaScrollY = scrollY - lastScrollY;
-        lastScrollY = scrollY;
-
         // Subtle drift in background pattern
         driftX += 0.12;
         driftY += 0.06;
@@ -436,6 +388,7 @@ function setupGridCanvas() {
         const baseLineColor = isDark ? "rgba(255, 255, 255, 0.025)" : "rgba(0, 0, 0, 0.025)";
         const activeLineColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
 
+        const scrollY = window.scrollY;
         const scrollX = window.scrollX || 0;
 
         const offsetX = (driftX - scrollX) % gridSpacing;
@@ -506,107 +459,6 @@ function setupGridCanvas() {
                 }
             }
             ctx.stroke();
-        }
-
-        // Calculate opacity fade boundaries for dual systems
-        const heroFade = Math.max(0, 1 - (scrollY / (height * 0.8)));
-        const bodyFade = Math.min(1, scrollY / (height * 0.5));
-
-        // Update time tick for petal swaying animation
-        time += 1;
-
-        // 3. Render Hero Section particles: flowing like petals falling
-        if (heroFade > 0) {
-            heroParticles.forEach(p => {
-                // Move downward
-                p.y += p.vy;
-
-                // Sway left/right using sine wave
-                const horizontalSway = Math.sin(p.swayOffset + time * p.swaySpeed) * p.swayWidth;
-                p.x += horizontalSway;
-
-                // Subtle wind drift to the right for a realistic leaf-like drop
-                p.x += 0.15;
-
-                // Scroll drift: let them react slightly to scroll by moving up as we scroll down
-                if (Math.abs(deltaScrollY) > 0.1) {
-                    p.y -= (deltaScrollY * 0.2);
-                }
-
-                // Horizontal boundary wrapping
-                if (p.x < -10) p.x = width + 10;
-                if (p.x > width + 10) p.x = -10;
-
-                // Reset to top if it reaches the bottom
-                if (p.y > height + 10) {
-                    p.y = -10;
-                    p.x = Math.random() * width;
-                    p.vy = 0.5 + Math.random() * 0.8;
-                }
-
-                // Draw petal pollen particle
-                ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.alpha * heroFade})` : `rgba(0, 0, 0, ${p.alpha * heroFade})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
-                ctx.fill();
-            });
-        }
-
-        // 4. Render Body Section particles: gravitating toward spotlight cursor
-        if (bodyFade > 0) {
-            bodyParticles.forEach(p => {
-                // Friction
-                p.vx *= 0.94;
-                p.vy *= 0.94;
-
-                const inertia = p.isPollen ? (p.size / 2) : 1;
-
-                // Scroll drift (opposing scroll)
-                if (Math.abs(deltaScrollY) > 0.1) {
-                    p.vy -= (deltaScrollY * 0.12) / inertia;
-                }
-
-                // Random float drift
-                p.vx += (Math.random() - 0.5) * 0.12;
-                p.vy += (Math.random() - 0.5) * 0.08;
-
-                // Settle gravity
-                p.vy += 0.015 * inertia;
-
-                // Mouse attraction (gravitating)
-                if (mouseX > -500 && mouseY > -500) {
-                    const dx = mouseX - p.x;
-                    const dy = mouseY - p.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 220) {
-                        const force = (220 - dist) / 220;
-                        p.vx += (dx / dist) * force * 0.08 / inertia;
-                        p.vy += (dy / dist) * force * 0.08 / inertia;
-                    }
-                }
-
-                // Apply velocity
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Boundary wrapping
-                if (p.x < 0) p.x = width;
-                if (p.x > width) p.x = 0;
-                if (p.y < 0) {
-                    p.y = height;
-                    p.x = Math.random() * width;
-                }
-                if (p.y > height) {
-                    p.y = 0;
-                    p.x = Math.random() * width;
-                }
-
-                // Draw gravitating particle
-                ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.alpha * bodyFade})` : `rgba(0, 0, 0, ${p.alpha * bodyFade})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
-                ctx.fill();
-            });
         }
 
         requestAnimationFrame(animate);
