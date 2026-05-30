@@ -615,6 +615,7 @@ h3.subsection-title::after {
 .pub-actions {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
     margin-top: 1.25rem;
 }
