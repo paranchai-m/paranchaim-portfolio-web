@@ -482,6 +482,34 @@ function setupActiveNavLinks() {
 }
 
 // ============================================
+// PUBLICATION TOGGLES
+// ============================================
+function setupPublicationToggles() {
+    const toggleBtns = document.querySelectorAll(".toggle-details-btn");
+    
+    toggleBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const article = btn.closest(".publication");
+            if (!article) return;
+            
+            const collapseDiv = article.querySelector(".pub-details-collapse");
+            if (!collapseDiv) return;
+            
+            const isExpanded = collapseDiv.classList.toggle("expanded");
+            btn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+            
+            if (isExpanded) {
+                btn.innerHTML = `Hide Summary &uarr;`;
+                collapseDiv.style.maxHeight = collapseDiv.scrollHeight + "px";
+            } else {
+                btn.innerHTML = `View Summary &darr;`;
+                collapseDiv.style.maxHeight = "0px";
+            }
+        });
+    });
+}
+
+// ============================================
 // INIT
 // ============================================
 window.addEventListener("DOMContentLoaded", () => {
@@ -492,4 +520,5 @@ window.addEventListener("DOMContentLoaded", () => {
     setupBackToTop();
     setupGridCanvas();
     setupActiveNavLinks();
+    setupPublicationToggles();
 });

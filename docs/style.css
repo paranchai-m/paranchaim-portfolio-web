@@ -584,7 +584,7 @@ h3.subsection-title::after {
     margin-bottom: 1.25rem;
 }
 
-.pub-details p {
+.pub-details-collapse p {
     margin-bottom: 1rem;
     color: var(--text-color);
     opacity: 0.88;
@@ -593,11 +593,36 @@ h3.subsection-title::after {
     font-size: 1rem;
 }
 
+.pub-details-collapse {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                margin-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 0;
+}
+
+.pub-details-collapse.expanded {
+    opacity: 1;
+    margin-bottom: 1.25rem;
+}
+
+.pub-details-collapse p:last-child {
+    margin-bottom: 0;
+}
+
+.pub-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+}
+
 .read-more {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: 0.75rem;
     text-decoration: none;
     color: var(--accent-red);
     font-weight: 700;
@@ -609,6 +634,26 @@ h3.subsection-title::after {
 .read-more:hover {
     gap: 0.7rem;
     color: var(--accent-red-hover);
+}
+
+.toggle-details-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color var(--transition-fast);
+    outline: none;
+}
+
+.toggle-details-btn:hover {
+    color: var(--accent-red);
 }
 
 /* ============================================
