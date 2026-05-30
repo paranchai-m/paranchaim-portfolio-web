@@ -286,7 +286,7 @@ header {
     flex-direction: column;
     justify-content: center;
     position: relative;
-    padding: 0 0 5rem;
+    padding: 0;
 }
 
 .hero {
@@ -294,29 +294,7 @@ header {
     position: relative;
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: block;
-    text-decoration: none;
-    z-index: 5;
-    opacity: 0.8;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
 
-.scroll-indicator:hover {
-    opacity: 1;
-    transform: translate(-50%, 4px);
-}
-
-.scroll-line {
-    width: 2px;
-    height: 40px;
-    background-color: var(--divider-color);
-}
 
 .greeting-badge {
     background-color: var(--accent-red);
