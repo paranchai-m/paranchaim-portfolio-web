@@ -344,6 +344,23 @@ function setupGridCanvas() {
     });
     resize();
 
+    let baseLineColor = "";
+    let activeLineColor = "";
+
+    function updateColors() {
+        const style = getComputedStyle(document.documentElement);
+        baseLineColor = style.getPropertyValue('--grid-base-color').trim() || "rgba(22, 22, 26, 0.025)";
+        activeLineColor = style.getPropertyValue('--grid-active-color').trim() || "rgba(217, 43, 31, 0.08)";
+    }
+    updateColors();
+
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            setTimeout(updateColors, 0);
+        });
+    }
+
     // Mouse positions (start off-screen)
     let mouseX = -1000;
     let mouseY = -1000;
@@ -383,10 +400,6 @@ function setupGridCanvas() {
         }
 
         ctx.clearRect(0, 0, width, height);
-
-        const isDark = document.body.classList.contains("dark-theme");
-        const baseLineColor = isDark ? "rgba(255, 255, 255, 0.025)" : "rgba(0, 0, 0, 0.025)";
-        const activeLineColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
 
         const scrollY = window.scrollY;
         const scrollX = window.scrollX || 0;

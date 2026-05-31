@@ -370,6 +370,10 @@ h1, h2, h3, h4 {
     display: none;
 }
 
+.nav-contact .copy-email-btn.copied::before {
+    content: none;
+}
+
 .nav-contact .copy-email-btn.copied::after {
     content: '✓ Copied!';
     font-size: 0.82rem;
