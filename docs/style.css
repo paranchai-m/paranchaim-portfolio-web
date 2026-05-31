@@ -2,27 +2,29 @@
    DESIGN TOKENS & THEME VARIABLES
    ============================================ */
 :root {
-    --bg-color: #FAFAFA;
-    --bg-secondary: #FFFFFF;
-    --text-color: #1A1A1A;
-    --text-muted: #6B7280;
-    --text-light: #9CA3AF;
-    --accent-red: #E3120B;
-    --accent-red-light: rgba(227, 18, 11, 0.08);
-    --accent-red-hover: #C70F09;
-    --accent-green: #059669;
+    --bg-color: #F6F5F2;
+    --bg-secondary: #FAF9F6;
+    --text-color: #16161A;
+    --text-muted: #4E525E;
+    --text-light: #8E929E;
+    --accent-red: #D92B1F;
+    --accent-red-light: rgba(217, 43, 31, 0.06);
+    --accent-red-hover: #BF2116;
+    --accent-green: #0E7490;
     --border-width: 4px;
-    --border-color: #1A1A1A;
+    --border-color: #16161A;
     --card-bg: #FFFFFF;
-    --card-border: #E5E7EB;
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
-    --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-    --divider-color: #E5E7EB;
+    --card-border: #E8E7E3;
+    --card-shadow: 0 4px 20px rgba(22, 22, 26, 0.02), 0 1px 3px rgba(22, 22, 26, 0.02);
+    --card-shadow-hover: 0 16px 36px rgba(22, 22, 26, 0.06), 0 2px 8px rgba(22, 22, 26, 0.03);
+    --divider-color: #E8E7E3;
     --badge-bg: var(--accent-red);
     --badge-text: #FFFFFF;
-    --dash-color: #D1D5DB;
-    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
-    --nav-bg: rgba(250, 250, 250, 0.85);
+    --dash-color: #CFCBC4;
+    --modal-overlay-bg: rgba(22, 22, 26, 0.4);
+    --nav-bg: rgba(246, 245, 242, 0.85);
+    --grid-base-color: rgba(22, 22, 26, 0.025);
+    --grid-active-color: rgba(217, 43, 31, 0.08);
     --section-spacing: 6rem;
     --radius-sm: 8px;
     --radius-md: 16px;
@@ -34,21 +36,24 @@
 }
 
 body.dark-theme {
-    --bg-color: #0F0F0F;
-    --bg-secondary: #171717;
-    --text-color: #F3F4F6;
-    --text-muted: #9CA3AF;
-    --text-light: #6B7280;
-    --accent-red-light: rgba(227, 18, 11, 0.12);
-    --border-color: #E5E7EB;
-    --card-bg: #1A1A1A;
-    --card-border: #2D2D2D;
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
-    --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
-    --divider-color: #262626;
-    --dash-color: #404040;
-    --modal-overlay-bg: rgba(0, 0, 0, 0.75);
-    --nav-bg: rgba(15, 15, 15, 0.85);
+    --bg-color: #0A0A0C;
+    --bg-secondary: #101014;
+    --text-color: #ECEFF4;
+    --text-muted: #8E94A5;
+    --text-light: #5E6375;
+    --accent-red-light: rgba(217, 43, 31, 0.12);
+    --accent-red-hover: #F23D31;
+    --border-color: #ECEFF4;
+    --card-bg: #111116;
+    --card-border: #1F202B;
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+    --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.3);
+    --divider-color: #1A1B24;
+    --dash-color: #383A4A;
+    --modal-overlay-bg: rgba(5, 5, 8, 0.85);
+    --nav-bg: rgba(10, 10, 12, 0.85);
+    --grid-base-color: rgba(255, 255, 255, 0.025);
+    --grid-active-color: rgba(217, 43, 31, 0.12);
 }
 
 /* ============================================
@@ -161,29 +166,124 @@ h1, h2, h3, h4 {
     gap: 0.75rem;
 }
 
-/* Section navigation links */
-.nav-links {
+/* Responsive Nav Dropdown (Visible on all screen sizes) */
+.nav-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-btn {
+    background: none;
+    border: 1.5px solid var(--divider-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    list-style: none;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all var(--transition-fast);
+    outline: none;
+    flex-shrink: 0;
 }
 
-.nav-links a {
-    text-decoration: none;
+.nav-dropdown-btn:hover {
+    border-color: var(--text-color);
+    background: var(--accent-red-light);
+}
+
+.nav-dropdown-btn .icon-wrapper {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: block;
+    transition: transform var(--transition-medium);
+}
+
+.nav-dropdown-btn .icon-compass,
+.nav-dropdown-btn .icon-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    display: block;
+    stroke: currentColor;
+}
+
+.nav-dropdown-btn .icon-close {
+    opacity: 0;
+    transform: scale(0.6) rotate(-90deg);
+}
+
+/* Active Morphing Icon States */
+.nav-dropdown-btn.active .icon-wrapper {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-btn.active .icon-compass {
+    opacity: 0;
+    transform: scale(0.6) rotate(90deg);
+}
+
+.nav-dropdown-btn.active .icon-close {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Dropdown Menu (Floats below the button) */
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: var(--nav-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--card-shadow-hover);
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+
+.nav-dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.6rem 1rem;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-muted);
-    padding: 0.4rem 0.75rem;
-    border-radius: var(--radius-full);
-    transition: color var(--transition-fast), background var(--transition-fast);
-    white-space: nowrap;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
 }
 
-.nav-links a:hover {
+.nav-dropdown-menu a:hover {
     color: var(--text-color);
     background: var(--accent-red-light);
+    padding-left: 1.25rem; /* Slide-right micro-animation */
 }
 
 .nav-right {
@@ -1164,11 +1264,11 @@ footer {
 
 .json-code-block {
     font-family: 'Source Code Pro', 'Courier New', monospace;
-    background-color: #141414;
-    color: #E5E7EB;
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
     padding: 1.5rem;
     border-radius: var(--radius-sm);
-    border: 1px solid #2D2D2D;
+    border: 1px solid var(--card-border);
     font-size: 0.82rem;
     line-height: 1.6;
     overflow-x: auto;
@@ -1290,9 +1390,6 @@ footer {
         font-size: clamp(2.2rem, 8vw, 3rem);
     }
 
-    .nav-links {
-        display: none;
-    }
 
     h2.section-title {
         font-size: 1.15rem;

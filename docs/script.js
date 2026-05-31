@@ -471,7 +471,7 @@ function setupGridCanvas() {
 // ACTIVE NAV LINK HIGHLIGHTING
 // ============================================
 function setupActiveNavLinks() {
-    const navLinks = document.querySelectorAll(".nav-links a");
+    const navLinks = document.querySelectorAll(".nav-dropdown-menu a");
     const sections = document.querySelectorAll("main > section[id]");
     
     if (!navLinks.length || !sections.length) return;
@@ -555,6 +555,60 @@ function setupPublicationToggles() {
 }
 
 // ============================================
+// RESPONSIVE NAV DROPDOWN
+// ============================================
+function setupNavDropdown() {
+    const dropdownContainer = document.getElementById("nav-dropdown-container");
+    const dropdownBtn = document.getElementById("nav-dropdown-btn");
+    const dropdownMenu = document.getElementById("nav-dropdown-menu");
+    if (!dropdownContainer || !dropdownBtn || !dropdownMenu) return;
+
+    function toggleMenu(forceClose = null) {
+        const isOpen = forceClose !== null ? !forceClose : !dropdownBtn.classList.contains("active");
+
+        if (isOpen) {
+            dropdownBtn.classList.add("active");
+            dropdownMenu.classList.add("active");
+            dropdownBtn.setAttribute("aria-expanded", "true");
+            dropdownMenu.setAttribute("aria-hidden", "false");
+        } else {
+            dropdownBtn.classList.remove("active");
+            dropdownMenu.classList.remove("active");
+            dropdownBtn.setAttribute("aria-expanded", "false");
+            dropdownMenu.setAttribute("aria-hidden", "true");
+        }
+    }
+
+    dropdownBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Close menu when clicking any link inside it
+    const links = dropdownMenu.querySelectorAll("a");
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            toggleMenu(true);
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!dropdownContainer.contains(e.target)) {
+            toggleMenu(true);
+        }
+    });
+
+    // Close on Escape key press
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && dropdownBtn.classList.contains("active")) {
+            toggleMenu(true);
+            dropdownBtn.focus();
+        }
+    });
+}
+
+// ============================================
 // INIT
 // ============================================
 window.addEventListener("DOMContentLoaded", () => {
@@ -565,5 +619,6 @@ window.addEventListener("DOMContentLoaded", () => {
     setupBackToTop();
     setupGridCanvas();
     setupActiveNavLinks();
+    setupNavDropdown();
     setupPublicationToggles();
 });

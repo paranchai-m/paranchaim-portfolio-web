@@ -14,9 +14,9 @@ This document outlines the domain concepts, technical architecture, and term glo
 *   **Gnetum:** A genus of gymnospermous flowering plants. The 2018 research investigates their pollen morphology and *harmomegathic* mechanisms (how pollen walls expand or contract to control moisture loss).
 
 ### Design Domain (Neo-minimalist Bauhaus)
-*   **Bauhaus Red (`#E3120B`):** A vibrant, highly saturated primary red key to the Bauhaus movement, representing utility, modernism, and boldness.
-*   **Neo-Minimalist Bauhaus:** A modern evolution of the classic Bauhaus layout. It combines strict grid geometry, stark typography, and primary color blocks with digital elements like soft drop shadows and fluid scroll-reveal animations.
-*   **Neo-Minimal Cards:** Floating container units (`.publication`) characterized by rounded corners (`16px`), light borders (`1px solid #eee`), and micro-elevations (`transform: translateY(-8px)`) on hover.
+*   **Bauhaus Red (`#D92B1F`):** A rich, premium cadmium vermilion key to the Bauhaus movement, conveying high contrast and aesthetic authority while retaining professional warmth.
+*   **Neo-Minimalist Bauhaus:** A modern evolution of the classic Bauhaus layout. It combines warm studio gallery walls (`#F6F5F2`), deep charcoal typography, strict grids, and primary accent blocks (red, with cobalt blue and amber accents) with digital layers like soft drop shadows and interactive canvas spotlights.
+*   **Neo-Minimal Cards:** Floating container units (`.publication`) characterized by rounded corners (`16px`), warm stone borders (`1px solid var(--card-border)`), and micro-elevations (`transform: translateY(-4px)`) on hover.
 
 ---
 
@@ -45,3 +45,4 @@ This document outlines the domain concepts, technical architecture, and term glo
     *   **Mobile Fallback:** Modals on mobile viewports show certificate details and a direct download/view button, circumventing poor mobile PDF rendering inside iframes.
 4.  **Theming (Light/Dark Toggle):** System preferences are respected, but the user is provided a top-nav toggle to shift between classic white-paper Bauhaus and high-contrast dark-charcoal Bauhaus.
 5.  **Academic Experience Timeline Structure:** To highlight the primary long-term research role, the '2021 – 2025 Research Assistant' position is pinned at the top of the timeline. Other shorter-term positions (including outreach roles updated to 'Temporary Academic Staff') are listed below in reverse chronological order.
+6.  **Minimalist Header Navigation Toggle:** To achieve an ultra-minimalist header layout, the horizontal navigation links are completely replaced on all screen sizes by a single circular quick-navigation button (40px) in the top-left of the navbar. The button features a compass icon that rotates and morphs into a close (X) icon on click, displaying a floating glassmorphism dropdown menu of all topics (Publications, Certifications, Education, Academic Experience). To establish clear visual structure, utility features are grouped on the right: the Theme Toggle is positioned directly behind (next to) the copy email button, establishing a clean boundary between content navigation (left) and utilities/contact (right).

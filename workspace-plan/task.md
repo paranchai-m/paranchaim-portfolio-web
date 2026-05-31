@@ -7,3 +7,4 @@
 - [x] Update Fossil Festival & Open House roles to "Temporary Academic Staff"
 - [x] Place 2021-2025 Research Assistant at the top of the timeline
 - [x] Document timeline structure and role designations in CONTEXT.md
+- [x] Refine and improve the color palette with premium HSL-tuned tokens and interactive grid highlights
