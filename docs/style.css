@@ -23,8 +23,8 @@
     --dash-color: #CFCBC4;
     --modal-overlay-bg: rgba(22, 22, 26, 0.4);
     --nav-bg: rgba(246, 245, 242, 0.85);
-    --grid-base-color: rgba(22, 22, 26, 0.025);
-    --grid-active-color: rgba(217, 43, 31, 0.08);
+    --grid-base-color: rgba(0, 0, 0, 0.025);
+    --grid-active-color: rgba(0, 0, 0, 0.1);
     --section-spacing: 6rem;
     --radius-sm: 8px;
     --radius-md: 16px;
@@ -53,7 +53,7 @@ body.dark-theme {
     --modal-overlay-bg: rgba(5, 5, 8, 0.85);
     --nav-bg: rgba(10, 10, 12, 0.85);
     --grid-base-color: rgba(255, 255, 255, 0.025);
-    --grid-active-color: rgba(217, 43, 31, 0.12);
+    --grid-active-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
